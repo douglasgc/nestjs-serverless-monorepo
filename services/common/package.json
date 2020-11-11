@@ -1,0 +1,42 @@
+{
+  "name": "common",
+  "version": "0.0.1",
+  "description": "Shared Services Code",
+  "scripts": {
+    "lint": "tslint 'src/**/*.ts'",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:ci": "jest --ci --testResultsProcessor='jest-junit'",
+    "coverage": "jest --coverage",
+    "prettier": "prettier --write src/**/*.ts",
+    "prettier:ci": "prettier --list-different src/**/*.ts"
+  },
+  "dependencies": {
+    "@nestjs/common": "^7.0.3",
+    "@nestjs/core": "^7.0.5",
+    "@nestjs/jwt": "^7.0.0",
+    "@nestjs/passport": "^7.0.0",
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.12.0-rc.0",
+    "@nestjs/typeorm": "^6.3.3",
+    "@types/multer": "^1.4.2",
+    "rxjs": "^6.5.4",
+    "serverless": "^1.66.0",
+    "jest": "25.1.0",
+    "jest-junit": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.13",
+    "@types/jest": "^25.0.0",
+    "@types/node": "^10.10.3",
+    "prettier": "^2.0.2",
+    "serverless-webpack": "^5.3.1",
+    "ts-jest": "25.2.0",
+    "ts-loader": "^6.0.0",
+    "tslint": "^5.17.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.4.5"
+  },
+  "author": "Douglas Gabriel Cardoso",
+  "license": "MIT"
+}

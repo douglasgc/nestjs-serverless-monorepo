@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "resolveJsonModule": true,
+    "baseUrl": "./",
+    "paths": {
+      "@sity/common/*": ["src/*"]
+    }
+  }
+}

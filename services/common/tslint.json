@@ -1,0 +1,22 @@
+{
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "rules": {
+    "no-unused-expression": [true, "allow-fast-null-checks"],
+    "no-console": false,
+    "object-literal-sort-keys": false,
+    "member-access": false,
+    "ordered-imports": false,
+    "interface-over-type-literal": false
+  },
+  "linterOptions": {
+    "exclude": [
+      "src/payment/*", 
+      "src/payment/**/*", 
+      "src/fcm/models/*", 
+      "src/payment/getnet/payment-getnet.service.ts",
+      "src/egoi/extensions/string.extension.ts",
+      "src/utils/extensions/string.extensions.ts",
+      "src/utils/extensions/date.extensions.ts"
+    ]
+  }
+}

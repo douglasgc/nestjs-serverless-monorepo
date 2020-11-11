@@ -1,0 +1,17 @@
+# package directories
+node_modules
+jspm_packages
+
+# Webpack directories
+.webpack
+
+!config.example.json
+
+public_key.*.pem
+!public_key.example.pem
+
+coverage
+
+junit.xml
+
+out.txt
