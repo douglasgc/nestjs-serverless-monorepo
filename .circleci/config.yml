@@ -1,0 +1,161 @@
+version: 2
+
+aliases:
+  - &container_config
+    docker:
+      - image: circleci/node:12.15
+
+    working_directory: ~/repo
+
+  - &checkout checkout
+
+  - &build_only_filters
+    filters:
+      branches:
+        ignore: /master/
+
+  - &build_and_deploy_qa_filters
+    filters:
+      branches:
+        only: master
+
+  - &build_and_deploy_prod_filters
+    filters:
+      tags:
+        only: /^v.*/
+      branches:
+        ignore: /.*/
+
+  - &save_cache
+    save_cache:
+      paths:
+        - node_modules
+        - services/auth/node_modules
+        - services/common/node_modules
+        - services/user/node_modules
+      key: dependencies-cache-v0.0.1-{{ checksum "package-lock.json" }}
+
+  - &restore_cache
+    restore_cache:
+      keys:
+        - dependencies-cache-v0.0.1-{{ checksum "package-lock.json" }}
+        - dependencies-cache
+
+  - &install_dependencies
+    run:
+      name: Install Dependencies
+      command: yarn install && npm run bootstrap
+
+  - &run_linter
+    run:
+      name: Run Linter
+      command: yarn lint
+
+  - &run_prettier
+    run:
+      name: Run Prettier
+      command: yarn prettier:ci
+
+  - &run_tests
+    run:
+      name: Run Tests
+      command: yarn test:ci
+
+  - &store_test_results
+    store_test_results:
+      path: reports/junit
+
+  - &install_serverless_cli
+    run:
+      name: Install Serverless CLI
+      command: sudo npm i -g serverless
+
+  - &setup_path_env
+    run: echo 'export PATH=/home/circleci/.local/bin:$PATH' >> $BASH_ENV
+
+  - &install_aws_cli
+    run:
+      name: Install awscli
+      command: |
+        sudo apt-get update
+        sudo apt-get install python3.5-dev
+        curl -O https://bootstrap.pypa.io/get-pip.py
+        python3.5 get-pip.py --user
+        pip install awscli --upgrade --user
+
+jobs:
+  build:
+    <<: *container_config
+
+    steps:
+      - *checkout
+      - *install_dependencies
+      - *save_cache
+      - *run_linter
+      - *run_prettier
+      - *store_test_results
+
+  deploy-qa:
+    <<: *container_config
+
+    steps:
+      - *checkout
+      - *restore_cache
+      - *install_serverless_cli
+      - *setup_path_env
+      - *install_aws_cli
+
+      - run:
+          name: Setup QA Services
+          command: >
+            mv services/common/src/environment/config.example.json services/common/src/environment/config.qa.json
+
+      - run:
+          name: Deploy services to QA
+          command: yarn deploy:qa
+          no_output_timeout: 30m
+
+  deploy-prod:
+    <<: *container_config
+
+    steps:
+      - *checkout
+      - *restore_cache
+      - *install_serverless_cli
+      - *setup_path_env
+      - *install_aws_cli
+
+      - run:
+          name: Setup PROD Services Environment
+          command: >
+            mv services/common/src/environment/config.prod.json services/common/src/environment/config.json
+
+      - run:
+          name: Deploy services to PROD
+          command: yarn deploy:prod
+          no_output_timeout: 30m
+
+workflows:
+  version: 2
+  build-only:
+    jobs:
+      - build:
+          <<: *build_only_filters
+
+  build-and-deploy-qa:
+    jobs:
+      - build:
+          <<: *build_and_deploy_qa_filters
+      - deploy-qa:
+          requires:
+            - build
+          <<: *build_and_deploy_qa_filters
+
+  build-and-deploy-prod:
+    jobs:
+      - build:
+          <<: *build_and_deploy_prod_filters
+      - deploy-prod:
+          requires:
+            - build
+          <<: *build_and_deploy_prod_filters

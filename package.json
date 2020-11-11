@@ -1,0 +1,44 @@
+{
+  "private": true,
+  "workspaces": [
+    "services/*"
+  ],
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "lint": "lerna exec yarn lint",
+    "test": "lerna exec yarn test",
+    "test:ci": "lerna exec --concurrency 1 yarn test:ci",
+    "test:e2e": "lerna run --concurrency 1 test:e2e",
+    "coverage": "lerna exec --concurrency 1 yarn coverage",
+    "deploy:dev": "lerna run --concurrency 1 deploy --ignore 'frontend' -- --stage dev",
+    "deploy:qa": "lerna run --concurrency 1 deploy --ignore 'frontend'",
+    "deploy:prod": "lerna run --concurrency 2 deploy:prod",
+    "run:all:dev": "yarn deploy:dev",
+    "run:all:qa": "yarn deploy:qa",
+    "run:all:prod": "yarn deploy:prod",
+    "remove:all:dev": "lerna run --concurrency 1 remove --scope 'frontend' -- --stage dev",
+    "remove:all:qa": "lerna run --concurrency 1 remove --scope 'frontend' -- --stage qa",
+    "remove:all:prod": "lerna run --concurrency 1 remove --scope 'frontend' -- --stage prod",
+    "prettier": "exit",
+    "prettier:ci": "exit"
+  },
+  "devDependencies": {
+    "jest-junit": "^10.0.0",
+    "lerna": "^3.20.2",
+    "prettier": "1.19.1",
+    "tslint": "^6.0.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.8.3"
+  },
+  "author": "Douglas Gabriel Cardoso",
+  "license": "MIT",
+  "name": "nestjs-serverless-monorepo",
+  "resolutions": {
+    "@types/react": "16.8.16"
+  },
+  "dependencies": {
+    "class-validator": "^0.11.1",
+    "dtslint": "^3.3.0",
+    "yarn": "^1.22.4"
+  }
+}
