@@ -3,7 +3,9 @@ service: service-auth
 provider:
   name: aws
   runtime: nodejs12.x
-  stage: qa
+  stage: qualidade
+  region: sa-east-1
+
 package:
   exclude:
     - .git/**

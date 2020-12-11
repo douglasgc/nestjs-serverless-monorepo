@@ -1,26 +1,22 @@
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
-const StartServerPlugin = require('start-server-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const StartServerPlugin = require('start-server-nestjs-webpack-plugin');
 
 module.exports = function (options) {
   return {
     ...options,
-    entry: ['webpack/hot/poll?100', './src/main.ts'],
+    entry: ['webpack/hot/poll?100', options.entry],
     watch: true,
     externals: [
       nodeExternals({
-        whitelist: ['webpack/hot/poll?100'],
+        allowlist: ['webpack/hot/poll?100'],
       }),
     ],
     plugins: [
       ...options.plugins,
-      new webpack.HotModuleReplacementPlugin({ name: 'admin' }),
-      new StartServerPlugin({ name: 'main.js' }),
-      new CopyWebpackPlugin([{
-        from: '../common/src/egoi/templates/',
-        to: './templates/'
-      }]),
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.WatchIgnorePlugin({ paths: [/\.d\.ts$/] }),
+      new StartServerPlugin({ name: options.output.filename }),
     ],
   };
 };

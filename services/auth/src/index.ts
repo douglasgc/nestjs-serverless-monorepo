@@ -14,9 +14,9 @@ function bootstrapServer(): Promise<Server> {
   return NestFactory.create(AppModule, adapter)
     .then(app => {
       app.setGlobalPrefix('/auth');
-      //App configuration here
       app.init();
       return app.enableCors();
+
     })
     .then(() => serverless.createServer(expressApp));
 }
