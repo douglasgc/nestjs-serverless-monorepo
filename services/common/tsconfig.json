@@ -5,7 +5,9 @@
     "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
-      "@sity/common/*": ["src/*"]
+      "@services/common/*": [
+        "src/*"
+      ]
     }
   }
 }
