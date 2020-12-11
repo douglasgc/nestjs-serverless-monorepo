@@ -15,7 +15,6 @@ CI/CD is setup for 3 different environments: `dev` (local), `qa` (qa), `prod` (f
 
 - common
 - auth
-- user
 
 ## Pré-Requisitos
 
@@ -36,16 +35,21 @@ All of our services must be inside the `services /` folder.
 If necessary, you can leave codes used in multiple microservices in `services / common /`.
 Typescript must be used in all services.
 
-#### Enviroment de desenvolvimento
+#### Enviroment
 
-Nosso arquivo de desenvolvimento se encontra em 'services/common/enviroment/config.dev.json'
+Configuration file in 'services/common/enviroment/config.ts'.
 
 #### How to use CircleCI
 
 Configure your AWS credentials in "enviroment variables"(circleci). 
 To run the build, just create or commit something
 To run the deploy to 'QA' just commit to the master.
-To run the deploy to 'PROD' just create a TAG.
+To run the deploy to 'PROD' just create a TAG or release.
+
+### QA Demo:
+```
+https://nax1lhc2e1.execute-api.sa-east-1.amazonaws.com/qualidade/auth/
+```
 
 ## Run the tests
 

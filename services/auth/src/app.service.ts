@@ -3,6 +3,6 @@ import { enviroment } from '@services/common/environment/config';
 @Injectable()
 export class AppService {
   getHello(): string {
-    return 'Hello World!' + enviroment.prod;
+    return 'Hello World! Production: ' + enviroment.prod;
   }
 }
