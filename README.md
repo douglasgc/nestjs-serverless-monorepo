@@ -42,6 +42,7 @@ Nosso arquivo de desenvolvimento se encontra em 'services/common/enviroment/conf
 
 #### How to use CircleCI
 
+Configure your AWS credentials in "enviroment variables"(circleci). 
 To run the build, just create or commit something
 To run the deploy to 'QA' just commit to the master.
 To run the deploy to 'PROD' just create a TAG.
