@@ -31,6 +31,7 @@ aliases:
       paths:
         - node_modules
         - services/auth/node_modules
+        - services/users/node_modules
         - services/common/node_modules
       key: dependencies-cache-{{ checksum "services/auth/package-lock.json" }}
 

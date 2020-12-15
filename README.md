@@ -15,6 +15,7 @@ CI/CD is setup for 3 different environments: `dev` (local), `qa` (qa), `prod` (f
 
 - common
 - auth
+- user
 
 ## Pré-Requisitos
 

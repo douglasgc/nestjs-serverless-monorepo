@@ -1,0 +1,29 @@
+service: service-users
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: qualidade
+  region: sa-east-1
+
+package:
+  exclude:
+    - .git/**
+    - src/**
+    - test/**
+    - e2e/**
+    - nodemon.json
+    - README.md
+
+functions:
+  index:
+    handler: dist/main.handler
+    events:
+      - http:
+          cors: true
+          path: '/'
+          method: any
+      - http:
+          cors: true
+          path: '{proxy+}'
+          method: any
