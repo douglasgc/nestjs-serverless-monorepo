@@ -17,7 +17,7 @@ CI/CD is setup for 3 different environments: `dev` (local), `qa` (qa), `prod` (f
 - auth
 - user
 
-## Pré-Requisitos
+## R  equirements
 
 [Nodejs](https://nodejs.org/en/) (em versão pelo menos version 11)
 
