@@ -79,7 +79,7 @@ aliases:
       command: |
         sudo apt-get update
         sudo apt-get install python3.5-dev
-        curl -O https://bootstrap.pypa.io/3.5/get-pip.py
+        curl -O https://bootstrap.pypa.io/pip/3.5/get-pip.py
         python3.5 get-pip.py --user
         pip install awscli --upgrade --user
 
