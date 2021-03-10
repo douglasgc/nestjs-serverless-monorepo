@@ -2,7 +2,7 @@
 
 ## How to Start
 
-Install Dependencies
+Install Dependencies 
 
 ```bash
 npm install
